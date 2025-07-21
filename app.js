@@ -347,6 +347,25 @@ const { Parser } = require('json2csv');
 const util = require('util');
 
 const app = express();
+// Simple maintenance mode toggle (FREE)
+const maintenanceMode = true; // Change this to true when needed
+
+app.use((req, res, next) => {
+  if (maintenanceMode) {
+    return res.send(`
+      <html>
+        <head><title>Maintenance</title></head>
+        <body style="text-align:center;padding:50px;font-family:sans-serif;">
+          <h1>🛠️ We'll be back soon!</h1>
+          <p>Our site is undergoing scheduled maintenance. Please check back later.</p>
+        </body>
+      </html>
+    `);
+  }
+  next();
+});
+
+
 const PORT = 3000;
 
 // Setup
