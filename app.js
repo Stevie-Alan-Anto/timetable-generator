@@ -356,7 +356,7 @@ app.use((req, res, next) => {
       <html>
         <head><title>Maintenance</title></head>
         <body style="text-align:center;padding:50px;font-family:sans-serif;">
-          <h1>🛠️ We'll be back soon!</h1>
+          <h1>🛠️ We'll be back soon!Tommorow Grand Launch BY:Kathuma Stay tuned...</h1>
           <p>Our site is undergoing scheduled maintenance. Please check back later.</p>
         </body>
       </html>
