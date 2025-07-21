@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Subject–Teacher Chart</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #888;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 Subject–Teacher Mapping</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Subject ↓ / Class →</th>
+        <% allClasses.forEach(cls => { %>
+          <th><%= cls %></th>
+        <% }) %>
+      </tr>
+    </thead>
+    <tbody>
+      <% allSubjects.forEach(subject => { %>
+        <tr>
+          <td><strong><%= subject %></strong></td>
+          <% allClasses.forEach(cls => { %>
+            <td>
+              <%= subjectMap[subject][cls] || '-' %>
+            </td>
+          <% }) %>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <a href="/">← Back to Home</a> |
+  <a href="/teachers">👩‍🏫 View All Teachers</a> |
+  <a href="/generate">📅 Class-wise Timetables</a>
+</body>
+</html>

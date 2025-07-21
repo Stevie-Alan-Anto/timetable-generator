@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Generated Timetable</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <h1>📅 Weekly Timetable</h1>
+
+  <table border="1" cellpadding="10">
+    <thead>
+      <tr>
+        <th>Day / Period</th>
+        <% for (let i = 1; i <= 8; i++) { %>
+          <th>Period <%= i %></th>
+        <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% timetable.forEach((dayRow, index) => { %>
+        <tr>
+          <td><%= days[index] %></td>
+          <% dayRow.forEach(slot => { %>
+            <td>
+              <% if (slot) { %>
+                <strong><%= slot.subject %></strong><br>
+                <small><%= slot.teacherName %> (<%= slot.className %>)</small>
+              <% } else { %>
+                Free
+              <% } %>
+            </td>
+          <% }) %>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <br>
+  <a href="/">← Back to Form</a> |
+  <a href="/teacher-timetables">👨‍🏫 View Teacher-wise Timetables</a> |
+  <a href="/download/class-timetables" class="btn-download">🧾 Download PDF</a>
+</body>
+</html>

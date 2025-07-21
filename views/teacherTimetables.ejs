@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Teacher-wise Timetables</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    td[contenteditable] {
+      background-color: #f0f8ff;
+      cursor: text;
+    }
+    td.dragging {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>👨‍🏫 Teacher-wise Timetables (Editable)</h1>
+
+  <% Object.keys(teacherTimetables).forEach(teacher => { %>
+    <div class="teacher-timetable">
+      <h2>Teacher: <%= teacher %></h2>
+      <table border="1" cellpadding="8">
+        <thead>
+          <tr>
+            <th>Day / Period</th>
+            <% for (let p = 1; p <= teacherTimetables[teacher][0].length; p++) { %>
+              <th>Period <%= p %></th>
+            <% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <% teacherTimetables[teacher].forEach((dayRow, dayIndex) => { %>
+            <tr>
+              <td><%= days[dayIndex] %></td>
+              <% dayRow.forEach((slot, periodIndex) => { %>
+                <td class="editable-cell"
+                    contenteditable="true"
+                    draggable="true"
+                    data-teacher="<%= teacher %>"
+                    data-day="<%= days[dayIndex] %>"
+                    data-period="<%= periodIndex + 1 %>">
+                  <% if (slot) { %>
+                    <strong><%= slot.subject %></strong><br>
+                    <%= slot.className %>
+                  <% } else { %>
+                    Free
+                  <% } %>
+                </td>
+              <% }) %>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <br>
+  <% }) %>
+
+  <div style="margin-top: 30px;">
+    <a href="/download/teacher-timetables" class="btn-download">📥 Download PDF</a>
+  </div>
+
+  <br>
+  <a href="/">← Back to Form</a> |
+  <a href="/generate">📅 View Class-wise Timetables</a> |
+  <a href="/subject-chart">📘 View Subject–Teacher Chart</a>
+
+  <script>
+    let draggedCell = null;
+
+    function handleDragStart(e) {
+      draggedCell = e.target;
+      draggedCell.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', '');
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      const targetCell = e.target.closest('td');
+      if (draggedCell && targetCell && draggedCell !== targetCell) {
+        const tempHTML = targetCell.innerHTML;
+        targetCell.innerHTML = draggedCell.innerHTML;
+        draggedCell.innerHTML = tempHTML;
+
+        // Update both cells in the DB
+        [draggedCell, targetCell].forEach(cell => handleCellUpdate(cell));
+
+        draggedCell.classList.remove('dragging');
+        draggedCell = null;
+      }
+    }
+
+    function handleCellUpdate(cell) {
+      const teacherName = cell.dataset.teacher;
+      const day = cell.dataset.day;
+      const period = cell.dataset.period;
+      const content = cell.innerText.trim();
+
+      if (!content || content.toLowerCase() === 'free') return;
+
+      const lines = content.split('\n');
+      const subject = lines[0]?.trim();
+      const className = lines[1]?.trim();
+
+      if (!subject || !className) return;
+
+      fetch('/update-timetable-entry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teacherName, className, subject, day, period })
+      }).then(res => {
+        if (!res.ok) {
+          alert("❌ Update failed. Check for conflicts.");
+        }
+      });
+    }
+
+    document.querySelectorAll('.editable-cell').forEach(cell => {
+      cell.addEventListener('dragstart', handleDragStart);
+      cell.addEventListener('dragover', handleDragOver);
+      cell.addEventListener('drop', handleDrop);
+      cell.addEventListener('blur', () => handleCellUpdate(cell));
+    });
+  </script>
+</body>
+</html>

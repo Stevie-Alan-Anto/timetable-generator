@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Teacher</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      margin-top: 10px;
+      font-weight: bold;
+      display: block;
+    }
+
+    input, button {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    small {
+      color: #666;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .nav-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .nav-links a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>✏️ Edit Teacher</h1>
+
+  <form action="/edit-teacher/<%= teacher.id %>" method="POST">
+    <label for="teacherName">👩‍🏫 Name</label>
+    <input type="text" name="teacherName" id="teacherName" value="<%= teacher.teacherName %>" required>
+
+    <label for="className">🏫 Classes Handled</label>
+    <input type="text" name="className" id="className" value="<%= teacher.className %>" required>
+    <small>Separate multiple classes with commas (e.g. 9A, 9B)</small>
+
+    <label for="subject">📘 Subjects</label>
+    <input type="text" name="subject" id="subject" value="<%= teacher.subject %>" required>
+    <small>Separate multiple subjects with commas (e.g. English, History)</small>
+
+    <label for="periods">🕒 Periods/Week</label>
+    <input type="number" name="periods" id="periods" value="<%= teacher.periods %>" required min="1">
+
+    <button type="submit">💾 Update</button>
+  </form>
+
+  <div class="nav-links">
+    <a href="/teachers">← Back to All Teachers</a>
+  </div>
+</body>
+</html>

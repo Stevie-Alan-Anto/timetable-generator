@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Add Teacher</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      margin-top: 15px;
+      font-weight: bold;
+      display: block;
+    }
+    input, button {
+      margin-top: 5px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    input {
+      width: 100%;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    table {
+      width: 100%;
+      margin-top: 15px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    .nav-links {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .nav-links a {
+      margin: 0 10px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>➕ Add New Teacher</h1>
+
+  <form action="/add-teacher" method="POST">
+    <label for="teacherName">👩‍🏫 Teacher Name</label>
+    <input type="text" name="teacherName" id="teacherName" required placeholder="e.g. Ms. Jenitha">
+
+    <label>🏫 Class - 📘 Subject - 🕒 Periods/Week</label>
+    <table id="entryTable">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Periods/Week</th>
+          <th>❌</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input name="className[]" required placeholder="e.g. 10B" /></td>
+          <td><input name="subject[]" required placeholder="e.g. Maths" /></td>
+          <td><input type="number" name="periods[]" required min="1" placeholder="e.g. 5" /></td>
+          <td><button type="button" onclick="removeRow(this)">🗑️</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" onclick="addRow()">➕ Add Another Class-Subject</button>
+    <button type="submit">✅ Add Teacher</button>
+  </form>
+
+  <div class="nav-links">
+    <a href="/teachers">📋 View All Teachers</a> |
+    <a href="/generate">📆 Class-wise Timetables</a> |
+    <a href="/teacher-timetables">👨‍🏫 Teacher-wise Timetables</a>
+  </div>
+
+  <script>
+    function addRow() {
+      const tbody = document.querySelector("#entryTable tbody");
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><input name="className[]" required placeholder="e.g. 10C" /></td>
+        <td><input name="subject[]" required placeholder="e.g. V.ED" /></td>
+        <td><input type="number" name="periods[]" required min="1" placeholder="e.g. 2" /></td>
+        <td><button type="button" onclick="removeRow(this)">🗑️</button></td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function removeRow(btn) {
+      btn.closest("tr").remove();
+    }
+  </script>
+</body>
+</html>

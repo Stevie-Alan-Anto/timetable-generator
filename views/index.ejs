@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Add Teacher</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      display: block;
+      width: 100%;
+      margin-top: 5px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    small {
+      color: #666;
+      display: block;
+      margin-bottom: 10px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .nav-links {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .nav-links a {
+      margin: 0 10px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>➕ Add New Teacher</h1>
+
+  <form action="/add-teacher" method="POST">
+    <label for="teacherName">👩‍🏫 Teacher Name</label>
+    <input type="text" name="teacherName" id="teacherName" required placeholder="e.g. Ms. Sharma">
+
+    <label for="className">🏫 Classes Handled</label>
+    <input type="text" name="className" id="className" required placeholder="e.g. 9A, 9B, 10C">
+    <small>Separate multiple classes with commas</small>
+
+    <label for="subject">📘 Subjects</label>
+    <input type="text" name="subject" id="subject" required placeholder="e.g. English, History">
+    <small>Separate multiple subjects with commas</small>
+
+    <label for="periods">🕒 Total Periods per Week</label>
+    <input type="number" name="periods" id="periods" min="1" required placeholder="e.g. 12">
+
+    <button type="submit">✅ Add Teacher</button>
+  </form>
+
+  <div class="nav-links">
+    <a href="/teachers">📋 View All Teachers</a> |
+    <a href="/generate">📆 Class-wise Timetables</a> |
+    <a href="/teacher-timetables">👨‍🏫 Teacher-wise Timetables</a> |
+    <a href="/config">⚙️ Configure Timetable</a>
+  </div>
+</body>
+</html>
+
+
+
+

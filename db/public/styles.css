@@ -1,0 +1,65 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  td, th {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  .break {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .free {
+    color: #aaa;
+    font-style: italic;
+  }
+  .btn-download {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .btn-download:hover {
+    background: #0056b3;
+  }
+  
+  input[type="text"], select {
+    padding: 6px 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  form {
+    display: inline;
+  }
+  button {
+    padding: 6px 10px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #c82333;
+  }
+  a.edit-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  a.edit-link:hover {
+    text-decoration: underline;
+  }
+  .editable-cell {
+    background-color: #fefefe;
+    cursor: text;
+  }
+  .editable-cell:focus {
+    outline: 2px solid #007bff;
+  }
+  
